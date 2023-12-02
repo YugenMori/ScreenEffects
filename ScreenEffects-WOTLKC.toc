@@ -1,0 +1,18 @@
+## Interface: 30403
+## Title: Screen|cffC7EF00Effects|r
+## Version: 1.0.0.1_Classic_Dragonflight
+## Author: Yugen
+## Notes-enUS: Screen Effects & Filters for World of Warcraft
+## Notes-ptBR: Efeitos de tela e filtros para World of Warcraft
+## Notes-deDE: Bildschirmeffekte und Filter für World of Warcraft
+## Notes-enGB: Screen Effects & Filters for World of Warcraft
+## Notes-esES: Efectos de pantalla y filtros para World of Warcraft
+## Notes-esMX: Efectos de pantalla y filtros para World of Warcraft
+## Notes-frFR: Effets d'écran et filtres pour World of Warcraft
+## Notes-itIT: Effetti dello schermo e filtri per World of Warcraft
+## Notes-koKR: 월드 오브 워크래프트를 위한 스크린 효과 및 필터
+## Notes-ruRU: Экранные эффекты и фильтры для World of Warcraft
+## Notes-zhCN: 魔兽世界的屏幕效果和滤镜
+## Notes-zhTW: 魔獸世界的螢幕效果和濾鏡
+
+ScreenEffects.lua
