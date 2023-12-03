@@ -14,5 +14,6 @@
 ## Notes-ruRU: Экранные эффекты и фильтры для World of Warcraft
 ## Notes-zhCN: 魔兽世界的屏幕效果和滤镜
 ## Notes-zhTW: 魔獸世界的螢幕效果和濾鏡
+## SavedVariables: OverlayState
 
 ScreenEffects.lua

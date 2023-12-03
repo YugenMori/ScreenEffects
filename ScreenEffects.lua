@@ -1,86 +1,113 @@
-local cyanFrame = CreateFrame("Frame", "CyanOverlay", UIParent)
-cyanFrame:SetAllPoints(UIParent)
-cyanFrame.texture = cyanFrame:CreateTexture(nil, "BACKGROUND")
-cyanFrame.texture:SetAllPoints(cyanFrame)
-cyanFrame.texture:SetColorTexture(0, 1, 1, 0.2) -- RGBA for cyan
-cyanFrame:EnableMouse(false)
-cyanFrame:SetFrameStrata("FULLSCREEN_DIALOG")
-cyanFrame:Hide()
+-- Cria uma tabela para salvar o estado dos quadros
+OverlayState = OverlayState or {}
 
-SLASH_CYANOVERLAY1 = "/cyan"
-SlashCmdList["CYANOVERLAY"] = function() cyanFrame:SetShown(not cyanFrame:IsShown()) end
+-- Função para criar um quadro com persistência de estado
+local function CreatePersistentFrame(frameName, r, g, b, a, slashCommand)
+    local frame = _G[frameName] or CreateFrame("Frame", frameName, UIParent)
+    frame:SetAllPoints(UIParent)
+    frame.texture = frame.texture or frame:CreateTexture(nil, "BACKGROUND")
+    frame.texture:SetAllPoints(frame)
+    frame.texture:SetColorTexture(r, g, b, a)
+    frame:EnableMouse(false)
+    frame:SetFrameStrata("FULLSCREEN_DIALOG")
+    if OverlayState[frameName] then
+        frame:Show()
+    else
+        frame:Hide()
+    end
 
+    _G["SLASH_" .. slashCommand .. "1"] = "/" .. string.lower(slashCommand)
+    SlashCmdList[slashCommand] = function()
+        local isShown = not frame:IsShown()
+        frame:SetShown(isShown)
+        OverlayState[frameName] = isShown
+    end
 
-local vibrantFrame = CreateFrame("Frame", "VibrantOverlay", UIParent)
-vibrantFrame:SetAllPoints(UIParent)
-vibrantFrame.texture = vibrantFrame:CreateTexture(nil, "BACKGROUND")
-vibrantFrame.texture:SetAllPoints(vibrantFrame)
-vibrantFrame.texture:SetColorTexture(1, 0, 1, 0.2) -- RGBA for magenta, a vibrant color
-vibrantFrame:EnableMouse(false)
-vibrantFrame:SetFrameStrata("FULLSCREEN_DIALOG")
-vibrantFrame:Hide()
+    -- Função para alternar a visibilidade do quadro
+    local function ToggleFrame()
+        local isShown = not frame:IsShown()
+        frame:SetShown(isShown)
+        OverlayState[frameName] = isShown
+    end
 
-SLASH_VIBRANTOVERLAY1 = "/vb"
-SlashCmdList["VIBRANTOVERLAY"] = function() vibrantFrame:SetShown(not vibrantFrame:IsShown()) end
+    -- Restaura o estado do quadro quando o jogador entra no mundo
+    frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+    frame:SetScript("OnEvent", function(self, event)
+        if event == "PLAYER_ENTERING_WORLD" then
+            local isShown = OverlayState[frameName]
+            frame:SetShown(isShown)
+        end
+    end)
 
+    return ToggleFrame
+end
 
-local sepiaFrame = CreateFrame("Frame", "SepiaOverlay", UIParent)
-sepiaFrame:SetAllPoints(UIParent)
-sepiaFrame.texture = sepiaFrame:CreateTexture(nil, "BACKGROUND")
-sepiaFrame.texture:SetAllPoints(sepiaFrame)
-sepiaFrame.texture:SetColorTexture(0.76, 0.56, 0.35, 0.2) -- RGBA for sepia
-sepiaFrame:EnableMouse(false)
-sepiaFrame:SetFrameStrata("FULLSCREEN_DIALOG")
-sepiaFrame:Hide()
+-- Cria os quadros com as cores e comandos correspondentes
+CreatePersistentFrame("CyanOverlay", 0, 1, 1, 0.2, "CYANOVERLAY")
+CreatePersistentFrame("VibrantOverlay", 1, 0, 1, 0.2, "VIBRANTOVERLAY")
+CreatePersistentFrame("SepiaOverlay", 0.76, 0.56, 0.35, 0.2, "SEPIAOVERLAY")
+CreatePersistentFrame("CoffeeOverlay", 0.86, 0.58, 0.36, 0.2, "COFFEEOVERLAY")
+CreatePersistentFrame("SandOverlay", 1.94, 1.78, 1.28, 0.2, "SANDOVERLAY")
+CreatePersistentFrame("NightOverlay", 0.01, 0.01, 0.01, 0.5, "NIGHTOVERLAY")
 
-SLASH_SEPIAOVERLAY1 = "/sepia"
-SlashCmdList["SEPIAOVERLAY"] = function() sepiaFrame:SetShown(not sepiaFrame:IsShown()) end
-
-
-local coffeeFrame = CreateFrame("Frame", "CoffeeOverlay", UIParent)
-coffeeFrame:SetAllPoints(UIParent)
-coffeeFrame.texture = coffeeFrame:CreateTexture(nil, "BACKGROUND")
-coffeeFrame.texture:SetAllPoints(coffeeFrame)
-coffeeFrame.texture:SetColorTexture(0.86, 0.58, 0.36, 0.2) -- RGBA for coffee
-coffeeFrame:EnableMouse(false)
-coffeeFrame:SetFrameStrata("FULLSCREEN_DIALOG")
-coffeeFrame:Hide()
-
-SLASH_COFFEEOVERLAY1 = "/cf"
-SlashCmdList["COFFEEOVERLAY"] = function() coffeeFrame:SetShown(not coffeeFrame:IsShown()) end
-
-
-local sandFrame = CreateFrame("Frame", "SandOverlay", UIParent)
-sandFrame:SetAllPoints(UIParent)
-sandFrame.texture = sandFrame:CreateTexture(nil, "BACKGROUND")
-sandFrame.texture:SetAllPoints(sandFrame)
-sandFrame.texture:SetColorTexture(1.94, 1.78, 1.28, 0.2) -- RGBA for sand
-sandFrame:EnableMouse(false)
-sandFrame:SetFrameStrata("FULLSCREEN_DIALOG")
-sandFrame:Hide()
-
-SLASH_SANDOVERLAY1 = "/sand"
-SlashCmdList["SANDOVERLAY"] = function() sandFrame:SetShown(not sandFrame:IsShown()) end
-
-
-local nightFrame = CreateFrame("Frame", "NightOverlay", UIParent)
-nightFrame:SetAllPoints(UIParent)
-nightFrame.texture = nightFrame:CreateTexture(nil, "BACKGROUND")
-nightFrame.texture:SetAllPoints(nightFrame)
-nightFrame.texture:SetColorTexture(0.01, 0.01, 0.01, 0.5) -- RGBA for night
-nightFrame:EnableMouse(false)
-nightFrame:SetFrameStrata("FULLSCREEN_DIALOG")
-nightFrame:Hide()
-
-SLASH_NIGHTOVERLAY1 = "/night"
-SlashCmdList["NIGHTOVERLAY"] = function() nightFrame:SetShown(not nightFrame:IsShown()) end
-
-
+-- Comando para listar todos os comandos disponíveis
 SLASH_SEOVERLAY1 = "/se"
 SlashCmdList["SEOVERLAY"] = function()
-    print("Commands(use '/commandname'): cyan, vb, sepia, cf, sand, night")
+    print("Commands (use '/name_of_command'): cyan, vb, sepia, cf, sand, night")
 end
 
 
+SlashCmdList["CYANOVERLAY"] = function()
+    local frame = _G["CyanOverlay"]
+    local isShown = not frame:IsShown()
+    frame:SetShown(isShown)
+    OverlayState["CyanOverlay"] = isShown
+end
+
+SLASH_CYANOVERLAY1 = "/cyan"
+
+SlashCmdList["VIBRANTOVERLAY"] = function()
+    local frame = _G["VibrantOverlay"]
+    local isShown = not frame:IsShown()
+    frame:SetShown(isShown)
+    OverlayState["VibrantOverlay"] = isShown
+end
+
+SLASH_VIBRANTOVERLAY1 = "/vb"
+
+SlashCmdList["SEPIAOVERLAY"] = function()
+    local frame = _G["SepiaOverlay"]
+    local isShown = not frame:IsShown()
+    frame:SetShown(isShown)
+    OverlayState["SepiaOverlay"] = isShown
+end
+
+SLASH_SEPIAOVERLAY1 = "/sepia"
 
 
+SlashCmdList["COFFEEOVERLAY"] = function()
+    local frame = _G["CoffeeOverlay"]
+    local isShown = not frame:IsShown()
+    frame:SetShown(isShown)
+    OverlayState["CoffeeOverlay"] = isShown
+end
+
+SLASH_COFFEEOVERLAY1 = "/cf"
+
+SlashCmdList["SANDOVERLAY"] = function()
+    local frame = _G["SandOverlay"]
+    local isShown = not frame:IsShown()
+    frame:SetShown(isShown)
+    OverlayState["SandOverlay"] = isShown
+end
+
+SLASH_SANDOVERLAY1 = "/sand"
+
+SlashCmdList["NIGHTOVERLAY"] = function()
+    local frame = _G["NightOverlay"]
+    local isShown = not frame:IsShown()
+    frame:SetShown(isShown)
+    OverlayState["NightOverlay"] = isShown
+end
+
+SLASH_NIGHTOVERLAY1 = "/night"
