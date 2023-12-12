@@ -49,11 +49,12 @@ CreatePersistentFrame("SepiaOverlay", 0.76, 0.56, 0.35, 0.2, "SEPIAOVERLAY")
 CreatePersistentFrame("CoffeeOverlay", 0.86, 0.58, 0.36, 0.2, "COFFEEOVERLAY")
 CreatePersistentFrame("SandOverlay", 1.94, 1.78, 1.28, 0.2, "SANDOVERLAY")
 CreatePersistentFrame("NightOverlay", 0.01, 0.01, 0.01, 0.5, "NIGHTOVERLAY")
+CreatePersistentFrame("OldOverlay", 0.50, 0.50, 0.50, 0.4, "OLDOVERLAY")
 
 -- Comando para listar todos os comandos disponíveis
 SLASH_SEOVERLAY1 = "/se"
 SlashCmdList["SEOVERLAY"] = function()
-    print("Commands (use '/name_of_command'): cyan, vb, sepia, cf, sand, night")
+    print("Commands (use '/name_of_command'): cyan, vb, sepia, cf, sand, night, old")
 end
 
 
@@ -111,3 +112,12 @@ SlashCmdList["NIGHTOVERLAY"] = function()
 end
 
 SLASH_NIGHTOVERLAY1 = "/night"
+
+SlashCmdList["OLDOVERLAY"] = function()
+    local frame = _G["OldOverlay"]
+    local isShown = not frame:IsShown()
+    frame:SetShown(isShown)
+    OverlayState["OldOverlay"] = isShown
+end
+
+SLASH_OLDOVERLAY1 = "/old"
