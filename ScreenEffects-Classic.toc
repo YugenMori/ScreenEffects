@@ -1,6 +1,6 @@
 ## Interface: 11500
 ## Title: Screen|cffC7EF00Effects|r
-## Version: 1.0.0.2_Classic_Dragonflight
+## Version: 1.0.0.3_Classic_Dragonflight
 ## Author: Yugen
 ## Notes-enUS: Screen Effects & Filters for World of Warcraft
 ## Notes-ptBR: Efeitos de tela e filtros para World of Warcraft
@@ -14,6 +14,6 @@
 ## Notes-ruRU: Экранные эффекты и фильтры для World of Warcraft
 ## Notes-zhCN: 魔兽世界的屏幕效果和滤镜
 ## Notes-zhTW: 魔獸世界的螢幕效果和濾鏡
-## SavedVariables: OverlayState
+## SavedVariables: OverlayState, ScreenEffectsSettings, COLOR_MY_UI
 
 ScreenEffects.lua
