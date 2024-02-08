@@ -193,17 +193,17 @@ local function Main_ScreenEffects()
         COLOR_MY_UI.Color = color
     end
 
-    -- Color Function
+    -- Global Color Function
     local function ScreenEffects_ShowColorPicker()
         if ColorPickerFrame:IsShown() then return end
-        ColorPickerFrame.previousValues = COLOR_MY_UI.Color
+        ColorPickerFrame.previousValues = COLOR_MY_UI[character].Color
         ColorPickerFrame.cancelFunc = ColorPicker_Cancelled
         ColorPickerFrame.opacityFunc = ColorPicker_Changed
         ColorPickerFrame.func = ColorPicker_Changed
-        ColorPickerFrame:SetColorRGB(COLOR_MY_UI.Color.r, COLOR_MY_UI.Color.g, COLOR_MY_UI.Color.b)
+        ColorPickerFrame.swatchFunc = ColorPicker_Changed
         ColorPickerFrame:ClearAllPoints()
         ColorPickerFrame:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", GetCursorPosition())
-        ColorPickerFrame:Show()
+        ShowUIPanel(ColorPickerFrame)
     end
     -- Choose a Color (Color Picker)
     local ScreenEffectsVertexColorFramesColorPicker = CreateFrame("Button", "$parentScreenEffectsVertexColorFramesColorPicker", ScreenEffects.panel, "UIPanelButtonTemplate")
