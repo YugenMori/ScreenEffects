@@ -196,7 +196,7 @@ local function Main_ScreenEffects()
     -- Global Color Function
     local function ScreenEffects_ShowColorPicker()
         if ColorPickerFrame:IsShown() then return end
-        ColorPickerFrame.previousValues = COLOR_MY_UI[character].Color
+        ColorPickerFrame.previousValues = COLOR_MY_UI.Color
         ColorPickerFrame.cancelFunc = ColorPicker_Cancelled
         ColorPickerFrame.opacityFunc = ColorPicker_Changed
         ColorPickerFrame.func = ColorPicker_Changed
