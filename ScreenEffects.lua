@@ -176,7 +176,13 @@ SLASH_OLDOVERLAY1 = "/old"
 local function InitSettings()
     ScreenEffects.panel = CreateFrame("Frame", "$parentScreenEffects", InterfaceOptionsFramePanelContainer)
     ScreenEffects.panel.name = "Screen|cffC7EF00Effects|r"
-    InterfaceOptions_AddCategory(ScreenEffects.panel, addonName)
+    
+    if InterfaceOptions_AddCategory then
+        InterfaceOptions_AddCategory(ScreenEffects.panel, addonName)
+    else
+        local category = Settings.RegisterCanvasLayoutCategory(ScreenEffects.panel, ScreenEffects.panel.name)
+        Settings.RegisterAddOnCategory(category)
+    end
 end
 
 local function Main_ScreenEffects()
