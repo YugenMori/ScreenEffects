@@ -1,6 +1,6 @@
-## Interface: 110000
+## Interface: 110002
 ## Title: Screen|cffC7EF00Effects|r
-## Version: 11.0.0.1_Classic_TWW
+## Version: 11.0.2.1_Classic_TWW
 ## Author: Yugen
 ## Notes-enUS: Screen Effects & Filters for World of Warcraft
 ## Notes-ptBR: Efeitos de tela e filtros para World of Warcraft
